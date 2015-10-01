@@ -41,6 +41,9 @@ Bootstrap Dynamic Tabs automatically makes Bootstrap nav-tabs and nav pils respo
 </html>
 ```
 
+## image samples
+https://cloud.githubusercontent.com/assets/2139720/10235065/70552b8c-686f-11e5-9d34-1bc3150c0473.png
+
 ## Credits
 This proyect is based in the original proyect from: https://github.com/gabrieltomescu/bootstrap-responsive-tabs
 
