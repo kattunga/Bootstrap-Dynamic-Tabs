@@ -42,6 +42,9 @@
     .dynamic-tabs-container .tabs-dropdown .dropdown-menu .divider {
           margin: 0;
 	}
+	.dynamic-tab {
+		width: 100%;
+	}
 }
 .dynamic-tabs-container .tabs-dropdown .dropdown-toggle {
     position: relative;

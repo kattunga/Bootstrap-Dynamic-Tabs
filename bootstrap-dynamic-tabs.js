@@ -45,14 +45,16 @@
 							verticalTab = TABS_OBJECT.tabsVerticalContainer.find(".dynamic-tab[tab-id=" + tabId + "]");
 							if (availableWidth > 0) {
 								horizontalTab.toggleClass('hidden', false);
-							}
-							tabWidth = horizontalTab.outerWidth(true);
-							isVisible = tabWidth <= availableWidth;
-							if (isVisible) {
-								availableWidth = availableWidth - tabWidth;
-								numVisibleHorizontalTabs++;
+								tabWidth = horizontalTab.outerWidth(true);
+								isVisible = tabWidth <= availableWidth;
+								if (isVisible) {
+									availableWidth = availableWidth - tabWidth;
+									numVisibleHorizontalTabs++;
+								} else {
+									availableWidth = -1;
+								}
 							} else {
-								availableWidth = -1;
+								isVisible = false;
 							}
 							horizontalTab.toggleClass('hidden', !isVisible);
 							verticalTab.toggleClass('hidden', isVisible);
@@ -65,19 +67,21 @@
 							verticalTab = TABS_OBJECT.tabsVerticalContainer.find(".dynamic-tab[tab-id=" + tabId + "]");
 							if (availableWidth > 0) {
 								horizontalTab.toggleClass('hidden', false);
-							}
-							tabWidth = horizontalTab.outerWidth(true);
-							isVisible = tabWidth <= availableWidth;
-							if (isVisible) {
-								availableWidth = availableWidth - tabWidth;
-								numVisibleHorizontalTabs++;
+								tabWidth = horizontalTab.outerWidth(true);
+								isVisible = tabWidth <= availableWidth;
+								if (isVisible) {
+									availableWidth = availableWidth - tabWidth;
+									numVisibleHorizontalTabs++;
+								} else {
+									availableWidth = -1;
+								}
 							} else {
-								availableWidth = -1;
+								isVisible = false;
 							}
 							horizontalTab.toggleClass('hidden', !isVisible);
 							verticalTab.toggleClass('hidden', isVisible);
 						}
-
+						
 						// Toggle the Tabs dropdown if there are more tabs than can fit in the tabs horizontal container
 						var numVisibleVerticalTabs = $tabs.length - numVisibleHorizontalTabs;
 						var hasVerticalTabs = (numVisibleVerticalTabs > 0);
