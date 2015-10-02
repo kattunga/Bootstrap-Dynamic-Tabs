@@ -6,7 +6,7 @@
 	position: relative;
 }
 .dynamic-tabs-container .dynamic-tabs {
-    padding-right: 102px;
+    padding-right: 50px;
 }
 .dynamic-tabs-container .tabs-dropdown {
     position: absolute;
@@ -44,7 +44,6 @@
 	}
 }
 .dynamic-tabs-container .tabs-dropdown .dropdown-toggle {
-    width: 102px;
     position: relative;
     display: block;
     padding: 10px 15px;

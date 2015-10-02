@@ -83,7 +83,7 @@
 						var hasVerticalTabs = (numVisibleVerticalTabs > 0);
 						TABS_OBJECT.tabsHorizontalContainer.siblings(".tabs-dropdown").toggleClass("hidden", !hasVerticalTabs);
 						TABS_OBJECT.tabsVerticalContainer.toggleClass("hidden", !hasVerticalTabs);
-						TABS_OBJECT.tabsVerticalContainer.siblings(".dropdown-toggle").find(".count").text("Tabs " + "(" + numVisibleVerticalTabs + ")");
+//						TABS_OBJECT.tabsVerticalContainer.siblings(".dropdown-toggle").find(".count").html("Tabs " + "(" + numVisibleVerticalTabs + ")");
 					};
 
 					// setup
@@ -110,16 +110,7 @@
 						// Attach a dropdown to the right of the tabs bar
 						// This will be toggled if tabs can't fit in a given viewport size
 						TABS_OBJECT.tabsHorizontalContainer.after(
-							"<div class='nav navbar-nav navbar-right dropdown tabs-dropdown js-tabs-dropdown'> \
-							<a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='count'>Tabs </span><b class='caret'></b></a> \
-							<ul class='dropdown-menu' role='menu'> \
-								<div class='dropdown-header visible-xs'>\
-									<p class='count'>Tabs</p> \
-									<button type='button' class='close' data-dismiss='dropdown'><span aria-hidden='true'>&times;</span></button> \
-									<div class='divider visible-xs'></div> \
-								</div> \
-							</ul> \
-							</div>"
+							"<div class='nav navbar-nav navbar-right dropdown tabs-dropdown js-tabs-dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-th-list'/></a><ul class='dropdown-menu' role='menu'><div class='dropdown-header visible-xs'><p class='count'>Tabs</p><button type='button' class='close' data-dismiss='dropdown'><span aria-hidden='true'>&times;</span></button><div class='divider visible-xs'></div></div></ul></div>"
 						);
 
 						// Clone each tab into the dropdown
