@@ -33,16 +33,12 @@
 						// active tab is always visible
 						horizontalTab = $tabs.eq(activeTabIndex);
 						tabId = horizontalTab.attr("tab-id");
-						verticalTab = TABS_OBJECT.tabsVerticalContainer.find(".dynamic-tab[tab-id=" + tabId + "]");
 						horizontalTab.toggleClass('hidden', false);
-						verticalTab.toggleClass('hidden', true);
 						availableWidth = availableWidth - horizontalTab.outerWidth(true);
 
 						// from active to firt
 						for (i = activeTabIndex - 1; i >= 0; i--) {
 							horizontalTab = $tabs.eq(i);
-							tabId = horizontalTab.attr("tab-id");
-							verticalTab = TABS_OBJECT.tabsVerticalContainer.find(".dynamic-tab[tab-id=" + tabId + "]");
 							if (availableWidth > 0) {
 								horizontalTab.toggleClass('hidden', false);
 								tabWidth = horizontalTab.outerWidth(true);
@@ -57,14 +53,11 @@
 								isVisible = false;
 							}
 							horizontalTab.toggleClass('hidden', !isVisible);
-							verticalTab.toggleClass('hidden', isVisible);
 						}
 
 						// from active to last
 						for (i = activeTabIndex + 1; i < $tabs.length; i++) {
 							horizontalTab = $tabs.eq(i);
-							tabId = horizontalTab.attr("tab-id");
-							verticalTab = TABS_OBJECT.tabsVerticalContainer.find(".dynamic-tab[tab-id=" + tabId + "]");
 							if (availableWidth > 0) {
 								horizontalTab.toggleClass('hidden', false);
 								tabWidth = horizontalTab.outerWidth(true);
@@ -79,15 +72,24 @@
 								isVisible = false;
 							}
 							horizontalTab.toggleClass('hidden', !isVisible);
-							verticalTab.toggleClass('hidden', isVisible);
 						}
-						
+
 						// Toggle the Tabs dropdown if there are more tabs than can fit in the tabs horizontal container
 						var numVisibleVerticalTabs = $tabs.length - numVisibleHorizontalTabs;
 						var hasVerticalTabs = (numVisibleVerticalTabs > 0);
 						TABS_OBJECT.tabsHorizontalContainer.siblings(".tabs-dropdown").toggleClass("hidden", !hasVerticalTabs);
-						TABS_OBJECT.tabsVerticalContainer.toggleClass("hidden", !hasVerticalTabs);
-//						TABS_OBJECT.tabsVerticalContainer.siblings(".dropdown-toggle").find(".count").html("Tabs " + "(" + numVisibleVerticalTabs + ")");
+					};
+
+					var onDropDow = function () {
+						// Clone each tab into the dropdown
+						TABS_OBJECT.tabsVerticalContainer.html("");
+						TABS_OBJECT.tabsHorizontalContainer.children('li').clone().appendTo(TABS_OBJECT.tabsVerticalContainer);
+						TABS_OBJECT.tabsVerticalContainer.children('li').toggleClass("hidden");
+						TABS_OBJECT.tabsVerticalContainer.children('li').on("click", function (e) {
+							TABS_OBJECT.activeTabId = $(this).attr("tab-id");
+							TABS_OBJECT.tabsHorizontalContainer.find("[tab-id=" + TABS_OBJECT.activeTabId + "]").tab("show");
+							update_tabs();
+						});	
 					};
 
 					// setup
@@ -116,40 +118,13 @@
 						TABS_OBJECT.tabsHorizontalContainer.after(
 							"<div class='nav navbar-nav navbar-right dropdown tabs-dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-th-list'/></a><ul class='dropdown-menu' role='menu'><div class='dropdown-header visible-xs'><p class='count'>Tabs</p><button type='button' class='close' data-dismiss='dropdown'><span aria-hidden='true'>&times;</span></button><div class='divider visible-xs'></div></div></ul></div>"
 						);
-
-						// Clone each tab into the dropdown
 						TABS_OBJECT.tabsVerticalContainer = TABS_OBJECT.tabsHorizontalContainer.siblings(".tabs-dropdown").find(".dropdown-menu");
-						$tabs.clone().appendTo(TABS_OBJECT.tabsVerticalContainer);
+						TABS_OBJECT.tabsHorizontalContainer.siblings(".tabs-dropdown").on('show.bs.dropdown', onDropDow);
 
 						// Update tabs
 						update_tabs();
 					}());
 
-
-					/** 
-					* Change Tab
-					*/
-					var change_tab = (function (e) {
-						TABS_OBJECT.tabsHorizontalContainer.parents(".dynamic-tabs-container").on("click", ".dynamic-tab", function (e) {
-
-							// Set 'activeTabId' property from clicked tab
-							var target = $(e.target);
-							TABS_OBJECT.activeTabId = $(this).attr("tab-id");
-
-							// Update tab 'active' class for horizontal container if tab is clicked
-							// from dropdown. Otherwise Bootstrap handles the normal 'active' class placement.
-							var verticalTabSelected = target.parents(".dropdown-menu").length > 0;
-							if (verticalTabSelected) {
-								TABS_OBJECT.tabsHorizontalContainer.find(".dynamic-tab").removeClass("active");
-								TABS_OBJECT.tabsHorizontalContainer.find(".dynamic-tab[tab-id=" + TABS_OBJECT.activeTabId + "]").addClass("active");
-							}
-
-							TABS_OBJECT.tabsVerticalContainer.find(".dynamic-tab").removeClass("active");
-
-							// Update tabs
-							update_tabs();
-						});
-					}());
 
 					// Update tabs on window resize
 					$(window).resize(function () {
