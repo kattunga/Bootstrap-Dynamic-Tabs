@@ -13,7 +13,6 @@
 				// Create object
 				var TABS_OBJECT;
 				TABS_OBJECT = this;
-				TABS_OBJECT.activeTabId = 1;
 				TABS_OBJECT.tabsHorizontalContainer = $container;
 				TABS_OBJECT.tabsHorizontalContainer.addClass("dynamic-tabs").wrap("<div class='dynamic-tabs-container clearfix'></div>");
 
@@ -40,7 +39,7 @@
 					var availableWidth = TABS_OBJECT.tabsHorizontalContainer.width();
 					var numVisibleHorizontalTabs = 1;
 
-					var activeTab = TABS_OBJECT.tabsHorizontalContainer.find("[tab-id=" + TABS_OBJECT.activeTabId + "]");
+					var activeTab = TABS_OBJECT.tabsHorizontalContainer.find('.active');
 					var activeTabIndex = activeTab.index();
 
 					// active tab is always visible
@@ -101,8 +100,7 @@
 					TABS_OBJECT.tabsHorizontalContainer.children('li').clone().appendTo(TABS_OBJECT.tabsVerticalContainer);
 					TABS_OBJECT.tabsVerticalContainer.children('li').toggleClass("hidden");
 					TABS_OBJECT.tabsVerticalContainer.children('li').on("click", function (e) {
-						TABS_OBJECT.activeTabId = $(this).attr("tab-id");
-						TABS_OBJECT.tabsHorizontalContainer.find("[tab-id=" + TABS_OBJECT.activeTabId + "]").tab("show");
+						TABS_OBJECT.tabsHorizontalContainer.find("[tab-id=" + $(this).attr("tab-id") + "]").tab("show");
 						updateTabs();
 					});
 				};
